@@ -23,7 +23,7 @@ public class Frmcliente extends javax.swing.JFrame {
      */
     public void Listar() throws Exception{
         
-        ClientesDAO dao = new ClientesDAO();
+       ClientesDAO dao = new ClientesDAO();
        List<Clientes> lista = dao.listarClientes();
        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
        dados.setNumRows(0);
@@ -103,8 +103,8 @@ public class Frmcliente extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtpesquisa = new javax.swing.JTextField();
+        btnpesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
         jButton7 = new javax.swing.JButton();
@@ -450,10 +450,15 @@ public class Frmcliente extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setText("Nome:");
 
-        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtpesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("Pesquisar");
+        btnpesquisar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnpesquisar.setText("Pesquisar");
+        btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpesquisarActionPerformed(evt);
+            }
+        });
 
         tabelaClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -496,9 +501,9 @@ public class Frmcliente extends javax.swing.JFrame {
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel20)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))))
+                                .addComponent(btnpesquisar))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(148, 148, 148)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -516,8 +521,8 @@ public class Frmcliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnpesquisar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
@@ -631,7 +636,7 @@ public class Frmcliente extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaClientesMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // editar
+         // editar
         
         try {
             
@@ -701,6 +706,47 @@ public class Frmcliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
+        
+       String nome = "%"+txtpesquisa.getText()+"%";
+        
+        
+       ClientesDAO dao = null;
+        try {
+            dao = new ClientesDAO();
+        } catch (Exception ex) {
+            Logger.getLogger(Frmcliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+       List<Clientes> lista = dao.buscarCliente(nome);
+       DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+       dados.setNumRows(0);
+       
+       for(Clientes c: lista){
+           dados.addRow(new Object[]{
+               
+               c.getId(),
+               c.getNome(),
+               c.getRg(),
+               c.getCpf(),
+               c.getEmail(),
+               c.getTelefone(),
+               c.getCelular(),
+               c.getCep(),
+               c.getEndereco(),
+               c.getNumero(),
+               c.getComplemento(),
+               c.getBairro(),
+               c.getCidade(),
+               c.getUf()                                            
+           });
+       }
+        
+        
+        
+    }//GEN-LAST:event_btnpesquisarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -737,9 +783,9 @@ public class Frmcliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnpesquisar;
     private javax.swing.JButton btnsalvar;
     private javax.swing.JComboBox<String> cbuf;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
@@ -770,7 +816,6 @@ public class Frmcliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTable tabelaClientes;
     private javax.swing.JTextField txtbairro;
     private javax.swing.JFormattedTextField txtcelular;
@@ -783,6 +828,7 @@ public class Frmcliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtendereco;
     private javax.swing.JTextField txtnome;
     private javax.swing.JTextField txtnumero;
+    private javax.swing.JTextField txtpesquisa;
     private javax.swing.JFormattedTextField txtrg;
     private javax.swing.JFormattedTextField txttelefonefixo;
     // End of variables declaration//GEN-END:variables
