@@ -12,6 +12,10 @@ import br.com.projeto.model.Clientes;
 import br.com.projeto.model.Fornecedores;
 import br.com.projeto.model.Produtos;
 import br.com.projeto.model.Utilitarios;
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,28 +29,12 @@ import javax.swing.table.DefaultTableModel;
 public class Frmvendas extends javax.swing.JFrame {
 
     /**
-     Método Listar na tabela
-     */
-    public void Listar() throws Exception{
-        
-       ProdutosDAO dao = new ProdutosDAO();
-       List<Produtos> lista = dao.listarProdutos();
-       DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
-       dados.setNumRows(0);
-       
-       for(Produtos c: lista){
-           dados.addRow(new Object[]{
-               
-               c.getId(),
-               c.getDescricao(),
-               c.getPreco(),
-               c.getQtd_estoque(),
-               c.getFornecedor().getNome()
-                                                    
-           });
-       }
-    }   
     
+     */
+   double total, preco, subtotal;
+   int qtd;
+   
+   DefaultTableModel carrinho;
     
     public Frmvendas() {
         initComponents();
@@ -74,12 +62,12 @@ public class Frmvendas extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtnome = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        txtnome5 = new javax.swing.JTextField();
+        txtdataatual = new javax.swing.JTextField();
         btnbuscarcliente = new javax.swing.JButton();
         txtcpf = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        txcodigo = new javax.swing.JTextField();
+        txtcodigo = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txtdescricao = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -165,6 +153,11 @@ public class Frmvendas extends javax.swing.JFrame {
 
         btnpagamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnpagamento.setText("Pagamento");
+        btnpagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpagamentoActionPerformed(evt);
+            }
+        });
 
         btncancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btncancelar.setText("Cancelar Venda");
@@ -188,10 +181,11 @@ public class Frmvendas extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Data:");
 
-        txtnome5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtnome5.addActionListener(new java.awt.event.ActionListener() {
+        txtdataatual.setEditable(false);
+        txtdataatual.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtdataatual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnome5ActionPerformed(evt);
+                txtdataatualActionPerformed(evt);
             }
         });
 
@@ -209,6 +203,11 @@ public class Frmvendas extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtcpf.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtcpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtcpfKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -230,7 +229,7 @@ public class Frmvendas extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtnome5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtdataatual, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnbuscarcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -243,7 +242,7 @@ public class Frmvendas extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel12)
-                    .addComponent(txtnome5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtdataatual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -259,10 +258,15 @@ public class Frmvendas extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Código");
 
-        txcodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txcodigo.addActionListener(new java.awt.event.ActionListener() {
+        txtcodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtcodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txcodigoActionPerformed(evt);
+                txtcodigoActionPerformed(evt);
+            }
+        });
+        txtcodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtcodigoKeyPressed(evt);
             }
         });
 
@@ -335,7 +339,7 @@ public class Frmvendas extends javax.swing.JFrame {
                 .addGap(0, 11, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnbuscaproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(121, 121, 121))
@@ -350,7 +354,7 @@ public class Frmvendas extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnbuscaproduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -456,30 +460,31 @@ public class Frmvendas extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
       
-        // Carrega a lista
-        try {
-            
-            Listar();
-        } catch (Exception ex) {
-            Logger.getLogger(Frmvendas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // Carrega a data atual do sistema
+        Date agora = new Date();
+        
+        SimpleDateFormat dataBr = new SimpleDateFormat("dd/MM/yyyy");
+        String dataformatada = dataBr.format(agora);
+        txtdataatual.setText(dataformatada);
+        
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void txtnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnomeActionPerformed
 
-    private void txtnome5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnome5ActionPerformed
+    private void txtdataatualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdataatualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnome5ActionPerformed
+    }//GEN-LAST:event_txtdataatualActionPerformed
 
     private void btnbuscarclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarclienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnbuscarclienteActionPerformed
 
-    private void txcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txcodigoActionPerformed
+    private void txtcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txcodigoActionPerformed
+    }//GEN-LAST:event_txtcodigoActionPerformed
 
     private void txtdescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdescricaoActionPerformed
         // TODO add your handling code here:
@@ -495,15 +500,102 @@ public class Frmvendas extends javax.swing.JFrame {
 
     private void btnbuscaprodutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaprodutoActionPerformed
         // TODO add your handling code here:
+                
+        try {
+            Produtos obj = new Produtos();
+            ProdutosDAO dao;
+            dao = new ProdutosDAO();
+            
+              obj = dao.buscaPorCodigo(Integer.parseInt(txtcodigo.getText()));
+                 
+                 txtdescricao.setText(obj.getDescricao());
+                 txtpreco.setText(String.valueOf(obj.getPreco()));
+                 
+        } catch (Exception ex) {
+            Logger.getLogger(Frmvendas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 
+               
+        
+        
+        
     }//GEN-LAST:event_btnbuscaprodutoActionPerformed
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-        // TODO add your handling code here:
+        // botao add item
+        
+        qtd = Integer.parseInt(txtqtd.getText());
+        preco = Double.parseDouble(txtpreco.getText());
+        
+        subtotal = qtd * preco;
+        total += subtotal;
+        txttotal.setText(String.valueOf(total));
+        
+        // adicionar ao carrinho
+        
+        carrinho = (DefaultTableModel) tabelaItens.getModel();
+        
+        carrinho.addRow(new Object[]{
+            txtcodigo.getText(),
+            txtdescricao.getText(),
+            txtqtd.getText(),
+            txtpreco.getText(),
+            subtotal
+    });
+        
+        
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void txttotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txttotalActionPerformed
+
+    private void txtcpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcpfKeyPressed
+        // busca cliente por cpf
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            try {
+                Clientes obj = new Clientes();
+                ClientesDAO dao = new ClientesDAO();
+                
+                obj = dao.buscaporCpf(txtcpf.getText());
+                txtnome.setText(obj.getNome());
+            } catch (SQLException ex) {
+                Logger.getLogger(Frmvendas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Frmvendas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_txtcpfKeyPressed
+
+    private void txtcodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoKeyPressed
+        // Busca produto por codigo
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             
+             try {
+                 Produtos obj = new Produtos();
+                 ProdutosDAO dao = new ProdutosDAO();
+                 
+                 obj = dao.buscaPorCodigo(Integer.parseInt(txtcodigo.getText()));
+                 
+                 txtdescricao.setText(obj.getDescricao());
+                 txtpreco.setText(String.valueOf(obj.getPreco()));
+             } catch (Exception ex) {
+                 Logger.getLogger(Frmvendas.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             
+             
+         }
+        
+        
+        
+    }//GEN-LAST:event_txtcodigoKeyPressed
+
+    private void btnpagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnpagamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -516,7 +608,7 @@ public class Frmvendas extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -566,11 +658,11 @@ public class Frmvendas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaItens;
-    private javax.swing.JTextField txcodigo;
+    private javax.swing.JTextField txtcodigo;
     private javax.swing.JFormattedTextField txtcpf;
+    private javax.swing.JTextField txtdataatual;
     private javax.swing.JTextField txtdescricao;
     private javax.swing.JTextField txtnome;
-    private javax.swing.JTextField txtnome5;
     private javax.swing.JTextField txtpreco;
     private javax.swing.JTextField txtqtd;
     private javax.swing.JTextField txttotal;

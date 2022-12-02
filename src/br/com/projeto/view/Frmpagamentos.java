@@ -101,6 +101,7 @@ public class Frmpagamentos extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Troco");
 
+        txttroco.setEditable(false);
         txttroco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txttroco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
