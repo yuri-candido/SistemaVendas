@@ -29,28 +29,20 @@ public class Frmproduto extends javax.swing.JFrame {
      */
     public void Listar() throws Exception{
         
-       ClientesDAO dao = new ClientesDAO();
-       List<Clientes> lista = dao.listarClientes();
+       ProdutosDAO dao = new ProdutosDAO();
+       List<Produtos> lista = dao.listarProdutos();
        DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
        dados.setNumRows(0);
        
-       for(Clientes c: lista){
+       for(Produtos c: lista){
            dados.addRow(new Object[]{
                
                c.getId(),
-               c.getNome(),
-               c.getRg(),
-               c.getCpf(),
-               c.getEmail(),
-               c.getTelefone(),
-               c.getCelular(),
-               c.getCep(),
-               c.getEndereco(),
-               c.getNumero(),
-               c.getComplemento(),
-               c.getBairro(),
-               c.getCidade(),
-               c.getUf()                                            
+               c.getDescricao(),
+               c.getPreco(),
+               c.getQtd_estoque(),
+               c.getFornecedor().getNome()
+                                                    
            });
        }
     }   
@@ -503,24 +495,31 @@ public class Frmproduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdescricaoActionPerformed
 
     private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
-        // Pega os dados ao clicar
+        try {
+            // Pega os dados ao clicar
+            
+            jTabbedPane1.setSelectedIndex(0);
+            
+            txtcodigo.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),0).toString());
+            txtdescricao.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),1).toString());
+            txtpreco.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),2).toString());
+            txtqtdestoque.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),3).toString());
+            //cbfornecedor.setSelectedItem(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),13).toString());
+            
+            Fornecedores f = new Fornecedores();
+            FornecedorDAO dao = new FornecedorDAO();
+            
+            
+            f = dao.consultarFornecedor(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),4).toString());
+            
+            cbfornecedor.removeAllItems();
+            cbfornecedor.getModel().setSelectedItem(f);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Frmproduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        jTabbedPane1.setSelectedIndex(0);
         
-        txtcodigo.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),0).toString());
-        txtdescricao.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),1).toString());
-        txtrg.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),2).toString());
-        txtcpf.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),3).toString());
-        txtpreco.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),4).toString());
-        txttelefonefixo.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),5).toString());
-        txtcelular.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),6).toString());
-        txtcep.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),7).toString());
-        txtendereco.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),8).toString());
-        txtnumero.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),9).toString());
-        txtcomplemento.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),10).toString());
-        txtbairro.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),11).toString());
-        txtcidade.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),12).toString());
-        cbfornecedor.setSelectedItem(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),13).toString());
         
     }//GEN-LAST:event_tabelaProdutosMouseClicked
 
@@ -529,29 +528,24 @@ public class Frmproduto extends javax.swing.JFrame {
         
         try {
             
-            Clientes obj = new Clientes();
-            
-            obj.setNome(txtdescricao.getText());
-            obj.setRg(txtrg.getText());
-            obj.setCpf(txtcpf.getText());
-            obj.setEmail(txtpreco.getText());
-            obj.setTelefone(txttelefonefixo.getText());
-            obj.setCelular(txtcelular.getText());
-            obj.setCep(txtcep.getText());
-            obj.setEndereco(txtendereco.getText());
-            obj.setNumero(Integer.parseInt(txtnumero.getText()));
-            obj.setComplemento(txtcomplemento.getText());
-            obj.setBairro(txtbairro.getText());
-            obj.setCidade(txtcidade.getText());
-            obj.setUf(cbfornecedor.getSelectedItem().toString());    
+            Produtos obj = new Produtos();
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
+            obj.setDescricao(txtdescricao.getText());
+            obj.setPreco(Double.parseDouble(txtpreco.getText()));
+            obj.setQtd_estoque(Integer.parseInt(txtqtdestoque.getText()));
             
-            ClientesDAO dao = new ClientesDAO();
             
-            dao.alterarCliente(obj);
+            Fornecedores f = new Fornecedores();
+            f = (Fornecedores) cbfornecedor.getSelectedItem();
+            
+            obj.setFornecedor(f);
+            
+            ProdutosDAO dao = new ProdutosDAO();
+            dao.alterar(obj);
             
         } catch (Exception e) {
+            System.out.println(e);
         }
         
         new Utilitarios().LimparTela(painelDados);
@@ -563,29 +557,16 @@ public class Frmproduto extends javax.swing.JFrame {
         
         try {
             
-            Clientes obj = new Clientes();
-            
-            obj.setNome(txtdescricao.getText());
-            obj.setRg(txtrg.getText());
-            obj.setCpf(txtcpf.getText());
-            obj.setEmail(txtpreco.getText());
-            obj.setTelefone(txttelefonefixo.getText());
-            obj.setCelular(txtcelular.getText());
-            obj.setCep(txtcep.getText());
-            obj.setEndereco(txtendereco.getText());
-            obj.setNumero(Integer.parseInt(txtnumero.getText()));
-            obj.setComplemento(txtcomplemento.getText());
-            obj.setBairro(txtbairro.getText());
-            obj.setCidade(txtcidade.getText());
-            obj.setUf(cbfornecedor.getSelectedItem().toString());    
+            Produtos obj = new Produtos();
             
             obj.setId(Integer.parseInt(txtcodigo.getText()));
             
-            ClientesDAO dao = new ClientesDAO();
+            ProdutosDAO dao = new ProdutosDAO();
             
-            dao.excluirCliente(obj);
+            dao.excluir(obj);
             
         } catch (Exception e) {
+            System.out.print(e);
         }
         
          new Utilitarios().LimparTela(painelDados);
