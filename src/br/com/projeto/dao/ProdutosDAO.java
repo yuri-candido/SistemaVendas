@@ -147,12 +147,118 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null,"Erro" + erro);
             }
         
+    }       
+     public List<Produtos> listarPorNome(String nome){
+        
+        try {
+            
+            List<Produtos> lista = new ArrayList<>();
+            
+            String sql = "select p.id, p.descricao, p.preco, p.qtd_estoque, f.nome from tb_produtos as p " +
+                "inner join tb_fornecedores as f on (p.for_id = f.id) where p.descricao like ?";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()) {
+                
+                Produtos obj = new Produtos();
+                Fornecedores f = new Fornecedores();
+                
+                obj.setId(rs.getInt("p.id"));
+                obj.setDescricao(rs.getString("p.descricao"));
+                obj.setPreco(rs.getDouble("p.preco"));
+                obj.setQtd_estoque(rs.getInt("p.qtd_estoque"));
+                
+                f.setNome(rs.getString(("f.nome")));
+                
+                obj.setFornecedor(f);
+                
+                lista.add(obj);
+                
+            }
+            
+            return lista;
+            
+            
+            
+        } catch (Exception e) {
+            
+               return null;
+        }
+     }  
+     
+        public Produtos consultaPorNome(String nome){
+        
+        try {
+            
+            List<Produtos> lista = new ArrayList<>();
+            
+            String sql = "select p.id, p.descricao, p.preco, p.qtd_estoque, f.nome from tb_produtos as p " +
+                "inner join tb_fornecedores as f on (p.for_id = f.id) where p.descricao = ?";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            
+            Produtos obj = new Produtos();
+            Fornecedores f = new Fornecedores();
+            
+            
+            if(rs.next()) {
+                
+                obj.setId(rs.getInt("p.id"));
+                obj.setDescricao(rs.getString("p.descricao"));
+                obj.setPreco(rs.getDouble("p.preco"));
+                obj.setQtd_estoque(rs.getInt("p.qtd_estoque"));
+                
+                f.setNome(rs.getString(("f.nome")));
+                
+                obj.setFornecedor(f);
+                                             
+            }
+            
+            return obj;
+            
+            
+            
+        } catch (Exception e) {
+            
+               return null;
+        }
+        
+        
+    }        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         }   
     
     
     
     
     
+          
+    
+    
+    
+        }
     
     
     
@@ -161,9 +267,4 @@ public class ProdutosDAO {
     
     
     
-    
-    
-    
-    
-    
-}
+

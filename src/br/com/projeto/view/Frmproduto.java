@@ -183,6 +183,11 @@ public class Frmproduto extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
+        cbfornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbfornecedorMouseClicked(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton3.setText("NOVO");
@@ -581,35 +586,26 @@ public class Frmproduto extends javax.swing.JFrame {
        String nome = "%"+txtpesquisa.getText()+"%";
         
         
-       ClientesDAO dao = null;
+       ProdutosDAO dao = null;
         try {
-            dao = new ClientesDAO();
+            dao = new ProdutosDAO();
         } catch (Exception ex) {
             Logger.getLogger(Frmproduto.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
-       List<Clientes> lista = dao.buscarCliente(nome);
+       List<Produtos> lista = dao.listarPorNome(nome);
        DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
        dados.setNumRows(0);
        
-       for(Clientes c: lista){
+       for(Produtos c: lista){
            dados.addRow(new Object[]{
                
                c.getId(),
-               c.getNome(),
-               c.getRg(),
-               c.getCpf(),
-               c.getEmail(),
-               c.getTelefone(),
-               c.getCelular(),
-               c.getCep(),
-               c.getEndereco(),
-               c.getNumero(),
-               c.getComplemento(),
-               c.getBairro(),
-               c.getCidade(),
-               c.getUf()                                            
+               c.getDescricao(),
+               c.getPreco(),
+               c.getQtd_estoque(),
+               c.getFornecedor().getNome()                                        
            });
        }
         
@@ -631,40 +627,36 @@ public class Frmproduto extends javax.swing.JFrame {
 
     private void btnbuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaActionPerformed
         
-        // buscar cliente por nome
+       String nome = txtdescricao.getText();
+       Produtos obj = new Produtos();
         try {
-            String nome = txtdescricao.getText();
-            Clientes obj = new Clientes();
-            ClientesDAO dao = new ClientesDAO();
-            
-            obj = dao.consultarNome(nome);
-            
-            if(obj.getNome() != null) {
-                
-           
-            
-                txtcodigo.setText(String.valueOf(obj.getId()));
-                txtdescricao.setText(obj.getNome());
-                txtrg.setText(obj.getRg());
-                txtcpf.setText(obj.getCpf());
-                txtpreco.setText(obj.getEmail());
-                txttelefonefixo.setText(obj.getTelefone());
-                txtcelular.setText(obj.getCelular());
-                txtcep.setText(obj.getCep());
-                txtendereco.setText(obj.getEndereco());
-                txtnumero.setText(String.valueOf(obj.getNumero()));
-                txtcomplemento.setText(obj.getComplemento());
-                txtbairro.setText(obj.getBairro());
-                txtcidade.setText(obj.getCidade());
-                cbfornecedor.setSelectedItem(obj.getUf());  
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "cliente não encontrado!");
-              }
-            
-        }  catch (Exception e) {
-            
+            ProdutosDAO dao = new ProdutosDAO();
+             obj = dao.consultaPorNome(nome); 
+             cbfornecedor.removeAllItems();
+             
+             if(obj.getDescricao() != null) {
+                 txtcodigo.setText(String.valueOf(obj.getId()));
+                 txtdescricao.setText(obj.getDescricao());
+                 txtpreco.setText(String.valueOf(obj.getPreco()));
+                 txtqtdestoque.setText(String.valueOf(obj.getQtd_estoque()));
+                 
+                 
+                 Fornecedores f = new Fornecedores();
+                 FornecedorDAO fdao = new FornecedorDAO();
+                 
+                 f = fdao.consultarFornecedor(obj.getFornecedor().getNome());
+                 
+                 cbfornecedor.getModel().setSelectedItem(f);
+             } else{
+                 JOptionPane.showMessageDialog(null, "Produto não encontrado");
+             }
+        } catch (Exception ex) {
+            Logger.getLogger(Frmproduto.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
+                                                        
+       
+               
         
         
     }//GEN-LAST:event_btnbuscaActionPerformed
@@ -690,6 +682,27 @@ public class Frmproduto extends javax.swing.JFrame {
        }
         
     }//GEN-LAST:event_cbfornecedorAncestorAdded
+
+    private void cbfornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbfornecedorMouseClicked
+        // TODO add your handling code here:
+        
+      FornecedorDAO dao;
+        try {
+            dao = new FornecedorDAO();
+             List<Fornecedores> listadefornecedores = dao.listarFornecedor();
+             cbfornecedor.removeAllItems();
+             
+             for(Fornecedores f : listadefornecedores){
+                 cbfornecedor.addItem(f);
+             }
+        } catch (Exception ex) {
+            Logger.getLogger(Frmproduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+        
+        
+        
+    }//GEN-LAST:event_cbfornecedorMouseClicked
 
     /**
      * @param args the command line arguments
