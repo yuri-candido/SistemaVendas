@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class Frmfornecedores extends javax.swing.JFrame {
 
     /**
-     Método Listar na tabela
+     M�todo Listar na tabela
      */
     public void Listar() throws Exception{
         
@@ -125,7 +125,7 @@ public class Frmfornecedores extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -158,7 +158,7 @@ public class Frmfornecedores extends javax.swing.JFrame {
         painelDados.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Código:");
+        jLabel6.setText("Codigo:");
 
         txtcodigo.setEditable(false);
         txtcodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -219,12 +219,12 @@ public class Frmfornecedores extends javax.swing.JFrame {
         txtcep.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("Endereço:");
+        jLabel12.setText("Endereco:");
 
         txtendereco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel13.setText("Número:");
+        jLabel13.setText("Numero:");
 
         txtnumero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -483,7 +483,7 @@ public class Frmfornecedores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome:", "CNPJ", "E-mail", "Telefone", "Celular", "Cep", "Endereço", "Número", "Comp", "Bairro", "Cidade", "UF"
+                "C�digo", "Nome:", "CNPJ", "E-mail", "Telefone", "Celular", "Cep", "Endereco", "N�mero", "Comp", "Bairro", "Cidade", "UF"
             }
         ));
         tabelaFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -810,7 +810,7 @@ public class Frmfornecedores extends javax.swing.JFrame {
                 cbuf.setSelectedItem(obj.getUf());  
                 
             } else {
-                JOptionPane.showMessageDialog(null, "Fornecedor não encontrado!");
+                JOptionPane.showMessageDialog(null, "Fornecedor n�o encontrado!");
               }
             
         }  catch (Exception e) {

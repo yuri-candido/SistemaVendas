@@ -5,7 +5,7 @@
  */
 package br.com.projeto.dao;
 
-;
+
 import br.com.projeto.model.Fornecedores;
 import com.br.projeto.jdbc.ConnectionFactory;
 import java.sql.Connection;

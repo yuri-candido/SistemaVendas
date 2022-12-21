@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/com/br/projeto/jdbc/ConnectionFactory.java</file>
             <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/dao/FuncionariosDAO.java</file>
-            <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/model/Clientes.java</file>
-            <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/view/Frmfuncionario.java</file>
-            <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/model/Funcionarios.java</file>
+            <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/dao/ClientesDAO.java</file>
+            <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/view/Frmpagamentos.java</file>
+            <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/view/Frmlogin.java</file>
+            <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/view/Frmvendas.java</file>
             <file>file:/C:/Users/yurig/Documents/NetBeansProjects/Projeto%20Sistemas%20Vendas/src/br/com/projeto/view/Frmcliente.java</file>
         </group>
     </open-files>

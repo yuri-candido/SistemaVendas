@@ -18,12 +18,12 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author yurig
+ * 
  */
 public class Frmfuncionario extends javax.swing.JFrame {
 
     /**
-     Método Listar na tabela
+     M�todo Listar na tabela
      */
     public void Listar() throws Exception{
         
@@ -156,7 +156,8 @@ public class Frmfuncionario extends javax.swing.JFrame {
         cbuf2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbuf2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PE", "MG", "RJ" }));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadasro de Funcionários");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -904,7 +905,7 @@ public class Frmfuncionario extends javax.swing.JFrame {
                 cbuf.setSelectedItem(obj.getUf());  
                 
             } else {
-                JOptionPane.showMessageDialog(null, "Funcionário não encontrado!");
+                JOptionPane.showMessageDialog(null, "Funcion�rio n�o encontrado!");
               }
             
         }  catch (Exception e) {

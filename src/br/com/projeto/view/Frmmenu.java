@@ -8,6 +8,7 @@ package br.com.projeto.view;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,13 +57,13 @@ public class Frmmenu extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        menu_posicao = new javax.swing.JMenuItem();
+        menu_controlevendas = new javax.swing.JMenuItem();
         jMenu13 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -83,7 +84,7 @@ public class Frmmenu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblusuario)
-                .addGap(0, 774, Short.MAX_VALUE))
+                .addGap(0, 789, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +93,7 @@ public class Frmmenu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblusuario))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         painel_desktop.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -106,8 +107,9 @@ public class Frmmenu extends javax.swing.JFrame {
         painel_desktopLayout.setVerticalGroup(
             painel_desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_desktopLayout.createSequentialGroup()
-                .addGap(0, 358, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(338, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/clientes.png"))); // NOI18N
@@ -124,9 +126,14 @@ public class Frmmenu extends javax.swing.JFrame {
         jMenuBar2.add(jMenu9);
 
         jMenu10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/funcionarios.png"))); // NOI18N
-        jMenu10.setText("Funcionários");
+        jMenu10.setText("Funcionarios");
 
         jMenuItem1.setText("Controle de Funcionários");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu10.add(jMenuItem1);
 
         jMenuBar2.add(jMenu10);
@@ -156,6 +163,11 @@ public class Frmmenu extends javax.swing.JFrame {
         jMenu14.add(jMenuItem3);
 
         jMenuItem4.setText("Consulta de Produtos");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu14.add(jMenuItem4);
 
         jMenuBar2.add(jMenu14);
@@ -164,23 +176,28 @@ public class Frmmenu extends javax.swing.JFrame {
         jMenu12.setText("Vendas");
 
         jMenuItem5.setText("Abrir PDV");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu12.add(jMenuItem5);
 
-        jMenuItem6.setText("Posição do dia");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        menu_posicao.setText("Posição do dia");
+        menu_posicao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                menu_posicaoActionPerformed(evt);
             }
         });
-        jMenu12.add(jMenuItem6);
+        jMenu12.add(menu_posicao);
 
-        jMenuItem7.setText("Histórico de Vendas");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        menu_controlevendas.setText("Histórico de Vendas");
+        menu_controlevendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                menu_controlevendasActionPerformed(evt);
             }
         });
-        jMenu12.add(jMenuItem7);
+        jMenu12.add(menu_controlevendas);
 
         jMenuBar2.add(jMenu12);
 
@@ -188,12 +205,22 @@ public class Frmmenu extends javax.swing.JFrame {
         jMenu13.setText("Configurações");
 
         jMenuItem8.setText("Trocar de Usuário");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu13.add(jMenuItem8);
 
         jMenuBar2.add(jMenu13);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/sair.png"))); // NOI18N
         jMenu1.setText("Sair");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar2.add(jMenu1);
 
         setJMenuBar(jMenuBar2);
@@ -202,39 +229,51 @@ public class Frmmenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 883, Short.MAX_VALUE)
+            .addGap(0, 898, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(painel_desktop))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(painel_desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 411, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(painel_desktop))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(painel_desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
+        // abrir tela cliente
+        
+        Frmcliente tela = new Frmcliente();
+        tela.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        // abrir tela fornecedor
+        Frmfornecedores tela = new Frmfornecedores();
+        tela.setVisible(true);
+        
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void menu_posicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_posicaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_menu_posicaoActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void menu_controlevendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_controlevendasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_menu_controlevendasActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
@@ -243,6 +282,50 @@ public class Frmmenu extends javax.swing.JFrame {
         this.setVisible(true);
         
     }//GEN-LAST:event_formWindowActivated
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // trocar de usuário
+        
+        Frmlogin telalogin = new Frmlogin();
+        this.dispose();
+        telalogin.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // sair do programa
+        
+        int op;
+        op = JOptionPane.showConfirmDialog(null, "Voc� tem certeza que deseja sair?");
+        
+        if(op == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // abrir tela funcionário
+        Frmfuncionario tela = new Frmfuncionario();
+        tela.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // abrir tela vendas
+        
+        Frmvendas tela = new Frmvendas();
+        tela.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // consulta produtos
+        //Frmproduto tela = new Frmproduto();
+       // tela.run().setSelectedIndex(1);
+       // tela.setVisible(true);
+       new Frmproduto().setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,7 +367,7 @@ public class Frmmenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
-    private javax.swing.JMenu jMenu12;
+    public javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu9;
@@ -295,11 +378,11 @@ public class Frmmenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblusuario;
+    public javax.swing.JMenuItem menu_controlevendas;
+    public javax.swing.JMenuItem menu_posicao;
     private javax.swing.JDesktopPane painel_desktop;
     // End of variables declaration//GEN-END:variables
 }

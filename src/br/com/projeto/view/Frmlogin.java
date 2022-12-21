@@ -40,13 +40,13 @@ public class Frmlogin extends javax.swing.JFrame {
         btnsair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Seja bem-vindo ao Sistema - Autenticação");
+        setTitle("Seja bem-vindo(a) ao Sistema - Autenticação");
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Autenticação de Usuário");
+        jLabel1.setText("Autenticação de usuário");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -55,7 +55,7 @@ public class Frmlogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addContainerGap(398, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,6 +86,11 @@ public class Frmlogin extends javax.swing.JFrame {
         });
 
         btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,6 +163,18 @@ public class Frmlogin extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnentrarActionPerformed
+
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+        // sair do programa        
+        
+        int op;
+        op = JOptionPane.showConfirmDialog(null, "Voc� tem certeza que deseja sair?");
+        
+        if(op == 0) {
+            System.exit(0);
+        }
+          
+    }//GEN-LAST:event_btnsairActionPerformed
 
     /**
      * @param args the command line arguments

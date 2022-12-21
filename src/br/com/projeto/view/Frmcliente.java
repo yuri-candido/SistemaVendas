@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class Frmcliente extends javax.swing.JFrame {
 
     /**
-     Método Listar na tabela
+     M�todo Listar na tabela
      */
     public void Listar() throws Exception{
         
@@ -126,7 +126,7 @@ public class Frmcliente extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -487,7 +487,7 @@ public class Frmcliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome:", "RG", "CPF", "E-mail", "Telefone", "Celular", "Cep", "Endereço", "Número", "Comp", "Bairro", "Cidade", "UF"
+                "C�digo", "Nome:", "RG", "CPF", "E-mail", "Telefone", "Celular", "Cep", "Endereço", "Número", "Comp", "Bairro", "Cidade", "UF"
             }
         ));
         tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -815,7 +815,7 @@ public class Frmcliente extends javax.swing.JFrame {
                 cbuf.setSelectedItem(obj.getUf());  
                 
             } else {
-                JOptionPane.showMessageDialog(null, "cliente não encontrado!");
+                JOptionPane.showMessageDialog(null, "cliente n�o encontrado!");
               }
             
         }  catch (Exception e) {

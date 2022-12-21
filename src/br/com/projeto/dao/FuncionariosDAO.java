@@ -303,7 +303,7 @@ public class FuncionariosDAO {
             
             
             if(rs.next()) {
-                JOptionPane.showMessageDialog(null, "Seja bem-vindo ao sistema!");
+                JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
                 Frmmenu tela = new Frmmenu();
                 tela.usuariologado = rs.getString("nome");
                 tela.setVisible(true);

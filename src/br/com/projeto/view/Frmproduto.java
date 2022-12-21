@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class Frmproduto extends javax.swing.JFrame {
 
     /**
-     M√©todo Listar na tabela
+     MÈtodo Listar na tabela
      */
     public void Listar() throws Exception{
         
@@ -104,7 +104,7 @@ public class Frmproduto extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -137,7 +137,7 @@ public class Frmproduto extends javax.swing.JFrame {
         painelDados.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("C√≥digo:");
+        jLabel6.setText("CÛdigo:");
 
         txtcodigo.setEditable(false);
         txtcodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -148,7 +148,7 @@ public class Frmproduto extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Descri√ß√£o");
+        jLabel7.setText("DescriÁ„o");
 
         txtdescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtdescricao.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +158,7 @@ public class Frmproduto extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Pre√ßo");
+        jLabel8.setText("PreÁo");
 
         txtpreco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtpreco.addActionListener(new java.awt.event.ActionListener() {
@@ -353,7 +353,7 @@ public class Frmproduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "C√≥digo", "Descri√ß√£o:", "Pre√ßo", "Qtd. Estoque", "Fornecedor"
+                "CÛdigo", "DescriÁ„o:", "PreÁo", "Qtd. Estoque", "Fornecedor"
             }
         ));
         tabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -648,7 +648,7 @@ public class Frmproduto extends javax.swing.JFrame {
                  
                  cbfornecedor.getModel().setSelectedItem(f);
              } else{
-                 JOptionPane.showMessageDialog(null, "Produto n√£o encontrado");
+                 JOptionPane.showMessageDialog(null, "Produto n„o encontrado");
              }
         } catch (Exception ex) {
             Logger.getLogger(Frmproduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -762,7 +762,7 @@ public class Frmproduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
+    public javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel painelDados;

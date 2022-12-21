@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author yurig
+ * 
  */
 public class Frmvendas extends javax.swing.JFrame {
 
@@ -130,7 +130,7 @@ public class Frmvendas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "C√≥digo", "produto", "Qnt", "Pre√ßo", "Subtotal"
+                "CÛdigo", "produto", "Qnt", "PreÁo", "Subtotal"
             }
         ));
         jScrollPane1.setViewportView(tabelaItens);
@@ -256,7 +256,7 @@ public class Frmvendas extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Produto"));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setText("C√≥digo");
+        jLabel9.setText("CÛdigo");
 
         txtcodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtcodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +281,7 @@ public class Frmvendas extends javax.swing.JFrame {
         });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel16.setText("Pre√ßo");
+        jLabel16.setText("PreÁo");
 
         txtpreco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtpreco.addActionListener(new java.awt.event.ActionListener() {
@@ -594,7 +594,12 @@ public class Frmvendas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcodigoKeyPressed
 
     private void btnpagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagamentoActionPerformed
-        // TODO add your handling code here:
+        // bot√£o pagamento
+        
+        Frmpagamentos telap = new Frmpagamentos();
+        telap.txttotal.setText(String.valueOf(total));
+        telap.setVisible(true);
+        //this.dispose(); // abre a tela pagamento e fecha vendas
     }//GEN-LAST:event_btnpagamentoActionPerformed
 
     /**
