@@ -31,3 +31,28 @@ Listagem dos clientes
 
 
 ####  As telas dos funcionários e  fornecedores seguem o mesmo padrão  da tela do cliente.
+
+
+
+
+
+
+
+Os fornecedores que estão no produto são previamente cadastrados no submenu fornecedores.
+
+Dados do produto
+
+
+![produtos](https://user-images.githubusercontent.com/101643498/209443373-c0731c4d-d014-4a75-bfd5-5a00aecf9224.png)
+
+
+Consulta de produtos
+
+
+![produtos-consulta](https://user-images.githubusercontent.com/101643498/209443394-d0922787-bf84-4bdc-9312-91930c89db93.png)
+
+
+Ponto de Vendas
+
+
+
