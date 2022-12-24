@@ -8,7 +8,7 @@
 
 ###  Imagens das telas
 
-Tela de login
+Tela de login. Para acessar o sistema, é necessário cadastrar um funcionário previamente no banco de dados.
 
 ![login1](https://user-images.githubusercontent.com/101643498/209363868-3447ad9d-9439-4707-88f3-bad9d1e26ca1.png)
 
