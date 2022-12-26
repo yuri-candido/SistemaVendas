@@ -54,5 +54,7 @@ Consulta de produtos
 
 Ponto de Vendas
 
+Após inserir o cpf e clicar em pesquisar, o nome do cliente aparecerá automaticamente. Isso também é válido para código e produto.
 
+![tela-vendas](https://user-images.githubusercontent.com/101643498/209491673-e516bb45-4949-43f0-8117-78019d78c4d3.png)
 
